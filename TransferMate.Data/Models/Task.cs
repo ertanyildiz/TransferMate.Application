@@ -9,6 +9,7 @@ namespace TransferMate.Data.Models
 {
     public class Task : BaseEntity<int>
     {
+        public string Title { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime RequiredByDate { get; set; }
         public string TaskDescription { get; set; }

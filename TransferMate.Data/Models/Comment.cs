@@ -13,5 +13,6 @@ namespace TransferMate.Data.Models
         public string CommentContent { get; set; }
         public int CommentType { get; set; }
         public DateTime ReminderDate { get; set; }
+        public int Task { get; set; }
     }
 }

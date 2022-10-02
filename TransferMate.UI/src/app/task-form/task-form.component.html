@@ -1,0 +1,56 @@
+<div *ngIf="inputTask">
+    <div *ngIf="errorMessage != null" class="card" style="width: 100%;">
+        <div class="card-header">
+            Errors occurred
+          </div>
+        <ul *ngFor="let item of errorMessage | keyvalue" class="list-group list-group-flush">
+            <div class="alert alert-danger" role="alert">
+                {{item.value}}
+              </div>
+          </ul>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input [(ngModel)]="inputTask.task.title" type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Created Date</label>
+        <input type="date" class="form-control" [ngModel]="inputTask.task.createdDate | date:'y-MM-dd'" (ngModelChange)="inputTask.task.createdDate = $event">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Required By Date</label>
+        <input type="date" class="form-control" [ngModel]="inputTask.task.requiredByDate | date:'y-MM-dd'" (ngModelChange)="inputTask.task.requiredByDate = $event">
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea  [(ngModel)]="inputTask.task.taskDescription" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select 
+        class="form-control"
+        [(ngModel)]="inputTask.task.taskStatus">
+        <option *ngFor="let stat of status" [value]="stat.id">{{ stat.statusName }}</option>
+    </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Task Type</label>
+        <select 
+        class="form-control"
+        [(ngModel)]="inputTask.task.taskType">
+        <option *ngFor="let type of types" [value]="type.id">{{ type.typeName }}</option>
+    </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Assigned To</label>
+        <select 
+        class="form-control"
+        [(ngModel)]="inputTask.task.assignedTo">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.userName }}</option>
+    </select>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="updateTask(inputTask.task)" *ngIf="inputTask.task.id">Update</button>
+    <button type="submit" class="btn btn-primary" (click)="deleteTask(inputTask.task)" *ngIf="inputTask.task.id">Delete</button>
+    <button type="submit" class="btn btn-primary" (click)='addTask(inputTask.task)' data-dismiss="createLabel" *ngIf="!inputTask.task.id">Save</button>
+</div>

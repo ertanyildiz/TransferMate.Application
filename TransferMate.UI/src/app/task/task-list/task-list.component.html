@@ -1,0 +1,51 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+(click)="addClick()" >
+    Add new
+  </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-task-form [inputTask]="task" (refreshTaskList)="refreshTaskList()" *ngIf="editMode"></app-task-form>
+        </div>
+      </div>
+    </div>
+  </div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Required By Date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Assigned To</th>
+        <th scope="col">Action</th>
+        <th scope="col">Go to</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let view of tasks">
+        <td>{{view.task.title}}</td>
+        <td>{{view.task.requiredByDate}}</td>
+        <td>{{view.taskStatus.statusName}}</td>
+        <td>{{view.user.userName}}</td>
+        <td>
+            <button type="button" class="btn btn-light mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editClick(view)" data-backdrop="static" data-keyboard="false">
+                Edit
+            </button>
+        </td>
+        <td>
+          <a class="nav-link" 
+            [routerLink]="['/task']"
+            [queryParams]="{id: view.task.title }">Details</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
