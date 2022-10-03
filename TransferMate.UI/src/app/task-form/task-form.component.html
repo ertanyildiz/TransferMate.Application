@@ -11,26 +11,26 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Title</label>
-        <input [(ngModel)]="inputTask.task.title" type="text" class="form-control">
+        <input [ngModel]="inputTask.task?.title" (ngModelChange)="inputTask.task.title=$event" type="text" class="form-control">
     </div>
     <div class="mb-3">
         <label class="form-label">Created Date</label>
-        <input type="date" class="form-control" [ngModel]="inputTask.task.createdDate | date:'y-MM-dd'" (ngModelChange)="inputTask.task.createdDate = $event">
+        <input type="date" class="form-control" [ngModel]="inputTask.task?.createdDate | date:'yyyy-MM-dd'" (ngModelChange)="inputTask.task.createdDate = $event">
     </div>
     <div class="mb-3">
         <label class="form-label">Required By Date</label>
-        <input type="date" class="form-control" [ngModel]="inputTask.task.requiredByDate | date:'y-MM-dd'" (ngModelChange)="inputTask.task.requiredByDate = $event">
+        <input type="date" class="form-control" [ngModel]="inputTask.task?.requiredByDate | date:'yyyy-MM-dd'" (ngModelChange)="inputTask.task.requiredByDate = $event">
 
     </div>
     <div class="mb-3">
         <label class="form-label">Description</label>
-        <textarea  [(ngModel)]="inputTask.task.taskDescription" class="form-control" rows="3"></textarea>
+        <textarea  [ngModel]="inputTask.task?.taskDescription" (ngModelChange)="inputTask.task.taskDescription=$event" class="form-control" rows="3"></textarea>
     </div>
     <div class="mb-3">
         <label class="form-label">Status</label>
         <select 
         class="form-control"
-        [(ngModel)]="inputTask.task.taskStatus">
+        [ngModel]="inputTask.task?.taskStatus" (ngModelChange)="inputTask.task.taskStatus=$event">
         <option *ngFor="let stat of status" [value]="stat.id">{{ stat.statusName }}</option>
     </select>
     </div>
@@ -38,7 +38,7 @@
         <label class="form-label">Task Type</label>
         <select 
         class="form-control"
-        [(ngModel)]="inputTask.task.taskType">
+        [ngModel]="inputTask.task?.taskType" (ngModelChange)="inputTask.task.taskType=$event">
         <option *ngFor="let type of types" [value]="type.id">{{ type.typeName }}</option>
     </select>
     </div>
@@ -46,11 +46,11 @@
         <label class="form-label">Assigned To</label>
         <select 
         class="form-control"
-        [(ngModel)]="inputTask.task.assignedTo">
+        [ngModel]="inputTask.task?.assignedTo" (ngModelChange)="inputTask.task.assignedTo=$event">
         <option *ngFor="let user of users" [value]="user.id">{{ user.userName }}</option>
     </select>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="updateTask(inputTask.task)" *ngIf="inputTask.task.id">Update</button>
-    <button type="submit" class="btn btn-primary" (click)="deleteTask(inputTask.task)" *ngIf="inputTask.task.id">Delete</button>
-    <button type="submit" class="btn btn-primary" (click)='addTask(inputTask.task)' data-dismiss="createLabel" *ngIf="!inputTask.task.id">Save</button>
+    <button type="submit" class="btn btn-primary" (click)="updateTask(inputTask.task)" *ngIf="inputTask.task?.id">Update</button>
+    <button type="submit" class="btn btn-primary" (click)="deleteTask(inputTask.task)" *ngIf="inputTask.task?.id">Delete</button>
+    <button type="submit" class="btn btn-primary" (click)='addTask(inputTask.task)' data-dismiss="createLabel" *ngIf="!inputTask.task?.id">Save</button>
 </div>

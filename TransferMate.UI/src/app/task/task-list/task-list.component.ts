@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-list',
@@ -8,7 +9,7 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskListComponent implements OnInit {
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private datePipe: DatePipe) { }
 
   tasks: any = [];
   task: any;
@@ -26,7 +27,19 @@ export class TaskListComponent implements OnInit {
   }
 
   addClick(){
-    this.task = [];
+    this.task = {
+      task : {
+        title: "",
+        createdDate: "",
+        requiredByDate: "",
+        taskDescription: "",
+        taskStatus: "",
+        taskType: 0,
+        assignedTo: 0,
+        nextActionDate: this.datePipe.transform(new Date(),"yyyy-MM-dd")
+      }
+
+    };
     this.modalTitle = "Add new Task";
     this.editMode = true;
   }

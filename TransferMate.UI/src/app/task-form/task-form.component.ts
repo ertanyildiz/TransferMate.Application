@@ -31,7 +31,7 @@ export class TaskFormComponent implements OnInit {
   addTask(item: any) {
     this.taskService.addNewTask(item)
       .subscribe({
-        next: (v) => console.log(v),
+        next: (v) => window.location.reload(),
         error: (e) => this.errorMessage = e.error,
         complete: () => this.refreshCustomerList.emit()
       })
@@ -40,7 +40,7 @@ export class TaskFormComponent implements OnInit {
   updateTask(item: any) {
     this.taskService.updateTask(item)
       .subscribe({
-        next: (v) => console.log(v),
+        next: (v) => window.location.reload(),
         error: (e) => this.errorMessage = e.error,
         complete: () => this.refreshCustomerList.emit()
       })
@@ -49,7 +49,7 @@ export class TaskFormComponent implements OnInit {
   deleteTask(item: any) {
     this.taskService.deleteTask(item)
       .subscribe({
-        next: (v) => console.log(v),
+        next: (v) => window.location.reload(),
         error: (e) => this.errorMessage = e.error,
         complete: () => this.refreshCustomerList.emit()
       });

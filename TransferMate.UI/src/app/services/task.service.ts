@@ -29,7 +29,7 @@ export class TaskService {
 
   deleteTask(task?: any) {
     return this.http.delete(
-      `${environment.apiUrl}${this.endpoint}//DeleteTask?id=${task.id}`,
+      `${environment.apiUrl}${this.endpoint}/DeleteTask?id=${task.id}`,
       );
   }
 }
