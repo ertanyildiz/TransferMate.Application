@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-task-list',
@@ -9,7 +11,8 @@ import { DatePipe } from '@angular/common';
 })
 export class TaskListComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private datePipe: DatePipe) { }
+  constructor(private taskService: TaskService, private datePipe: DatePipe,
+    private router: Router) { }
 
   tasks: any = [];
   task: any;
@@ -58,6 +61,14 @@ export class TaskListComponent implements OnInit {
 
   closeClick(){
     this.editMode = false;
+  }
+
+  goToDetails($event: MouseEvent, id: any) {
+    $event.preventDefault();
+    this.router.navigate(
+      ['/task'],
+      { queryParams: { id: id } }
+    );
   }
 
 }

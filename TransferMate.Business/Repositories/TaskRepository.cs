@@ -133,7 +133,7 @@ namespace TransferMate.Business.Repositories
                     $"LEFT JOIN dbo.TaskStatus ON dbo.Task.TaskStatus = dbo.TaskStatus.Id " +
                     $"LEFT JOIN dbo.TaskType ON dbo.Task.TaskType = dbo.TaskType.Id " +
                     $"LEFT JOIN dbo.[User] ON dbo.Task.AssignedTo = dbo.[User].Id" +
-                    $"{ (key > 0 ? " WHERE Id = @Id" : "")}";
+                    $"{ (key > 0 ? " WHERE dbo.Task.Id = @Id" : "")}";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Id", key);

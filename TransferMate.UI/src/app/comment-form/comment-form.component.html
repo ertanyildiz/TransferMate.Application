@@ -1,0 +1,31 @@
+<div *ngIf="selectedComment">
+    <div *ngIf="errorMessage != null" class="card" style="width: 100%;">
+        <div class="card-header">
+            Errors occurred
+          </div>
+        <ul *ngFor="let item of errorMessage | keyvalue" class="list-group list-group-flush">
+            <div class="alert alert-danger" role="alert">
+                {{item.value}}
+              </div>
+          </ul>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Reminder Date</label>
+        <input type="date" class="form-control" [ngModel]="selectedComment.comment.reminderDate | date:'yyyy-MM-dd'" (ngModelChange)="selectedComment.comment.reminderDate = $event">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea  [ngModel]="selectedComment.comment.commentContent" (ngModelChange)="selectedComment.comment.commentContent = $event" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Comment Type</label>
+        <select 
+        class="form-control"
+        [ngModel]="selectedComment.comment.commentType" (ngModelChange)="selectedComment.comment.commentType = $event">
+        <option *ngFor="let commentType of commentTypes" [value]="commentType.id">{{ commentType.typeName }}</option>
+    </select>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="updateTask(selectedComment.comment)" *ngIf="selectedComment.comment.id">Update</button>
+    <button type="submit" class="btn btn-primary" (click)="deleteTask(selectedComment.comment)" *ngIf="selectedComment.comment.id">Delete</button>
+    <button type="submit" class="btn btn-primary" (click)='addTask(selectedComment.comment)' data-dismiss="createLabel" *ngIf="!selectedComment.comment.id">Save</button>
+</div>

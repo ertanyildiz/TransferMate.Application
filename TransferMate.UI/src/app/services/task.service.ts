@@ -15,6 +15,10 @@ export class TaskService {
     return this.http.get<any[]>(`${environment.apiUrl}${this.endpoint}/ListTasksView`);
   }
 
+  getTaskListViewWithId(id?: any) : Observable<any[]> {
+    return this.http.get<any[]>(`${environment.apiUrl}${this.endpoint}/ListTasksView?id=${id}`);
+  }
+
   addNewTask(task?: any): Observable<any> {
     return this.http.post<any>(
         `${environment.apiUrl}${this.endpoint}/CreateTask`,

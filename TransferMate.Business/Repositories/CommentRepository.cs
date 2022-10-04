@@ -89,6 +89,90 @@ namespace TransferMate.Business.Repositories
             }
         }
 
+        public IEnumerable<Data.ViewModels.CommentViewModel> SelectView(int? key = 0)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = $"SELECT dbo.Comment.Id, dbo.Comment.CreatedDate, dbo.Comment.CommentContent," +
+                               $" dbo.Comment.ReminderDate, dbo.Comment.Task, dbo.CommentType.TypeName," +
+                               $" dbo.Comment.CommentType " +
+                               $"FROM dbo.Comment LEFT JOIN" +
+                               $" dbo.CommentType ON dbo.Comment.CommentType = dbo.CommentType.Id" +
+                               $"{(key > 0 ? " WHERE dbo.Comment.Id = @Id" : "")}";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", key);
+
+                    connection.Open();
+                    var sqlDataReader = command.ExecuteReader();
+                    var dt = new DataTable();
+                    dt.Load(sqlDataReader);
+                    IEnumerable<DataRow> rows = dt.AsEnumerable();
+                    var tasks = rows.Select(dr => new Data.ViewModels.CommentViewModel
+                    {
+                        Comment = new Data.Models.Comment
+                        {
+                            Id = Convert.ToInt32(dr["Id"]),
+                            CommentContent = dr["CommentContent"]?.ToString() ?? "",
+                            CommentType = Convert.ToInt32(dr["CommentType"]),
+                            CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
+                            ReminderDate = Convert.ToDateTime(dr["ReminderDate"]),
+                            Task = Convert.ToInt32(dr["Task"])
+                        },
+                        CommentType = new Data.Models.CommentType
+                        {
+                            Id = Convert.ToInt32(dr["CommentType"]),
+                            TypeName = dr["TypeName"]?.ToString() ?? ""
+                        }
+                    }).ToList();
+
+                    return tasks;
+                }
+            }
+        }
+
+        public IEnumerable<Data.ViewModels.CommentViewModel> SelectCommentsByTaskIdView(int? key = 0)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = $"SELECT dbo.Comment.Id, dbo.Comment.CreatedDate, dbo.Comment.CommentContent," +
+                               $" dbo.Comment.ReminderDate, dbo.Comment.Task, dbo.CommentType.TypeName," +
+                               $" dbo.Comment.CommentType " +
+                               $"FROM dbo.Comment LEFT JOIN" +
+                               $" dbo.CommentType ON dbo.Comment.CommentType = dbo.CommentType.Id" +
+                               $"{(key > 0 ? " WHERE dbo.Comment.Id = @Id" : "")}";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", key);
+
+                    connection.Open();
+                    var sqlDataReader = command.ExecuteReader();
+                    var dt = new DataTable();
+                    dt.Load(sqlDataReader);
+                    IEnumerable<DataRow> rows = dt.AsEnumerable();
+                    var tasks = rows.Select(dr => new Data.ViewModels.CommentViewModel
+                    {
+                        Comment = new Data.Models.Comment
+                        {
+                            Id = Convert.ToInt32(dr["Id"]),
+                            CommentContent = dr["CommentContent"]?.ToString() ?? "",
+                            CommentType = Convert.ToInt32(dr["CommentType"]),
+                            CreatedDate = Convert.ToDateTime(dr["CreatedDate"]),
+                            ReminderDate = Convert.ToDateTime(dr["ReminderDate"]),
+                            Task = Convert.ToInt32(dr["Task"])
+                        },
+                        CommentType = new Data.Models.CommentType
+                        {
+                            Id = Convert.ToInt32(dr["CommentType"]),
+                            TypeName = dr["TypeName"]?.ToString() ?? ""
+                        }
+                    }).ToList();
+
+                    return tasks;
+                }
+            }
+        }
+
         public bool Update(Data.Models.Comment entity)
         {
             using (var connection = new SqlConnection(_connectionString))

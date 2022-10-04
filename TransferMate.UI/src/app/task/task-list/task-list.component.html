@@ -39,13 +39,14 @@
             </button>
         </td>
         <td>
-          <a class="nav-link" 
-            [routerLink]="['/task']"
-            [queryParams]="{id: view.task.title }">Details</a>
+          <a class="btn btn-light mr-1" (click)="goToDetails($event, view.task.id)">Details</a>
         </td>
       </tr>
     </tbody>
   </table>
+  <div *ngIf="!tasks.length">
+    <p>Please add a new task</p>
+  </div>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
   (click)="addClick()" >
       Add new

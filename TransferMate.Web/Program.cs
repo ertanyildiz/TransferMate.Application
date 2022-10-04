@@ -1,11 +1,18 @@
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using FluentValidation.AspNetCore;
+using TransferMate.Business.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(options =>
+{
+    // Automatic registration of validators in assembly
+    options.RegisterValidatorsFromAssemblyContaining<TaskValidator>();
+    options.RegisterValidatorsFromAssemblyContaining<CommentValidator>();
+}); ;
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
