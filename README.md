@@ -5,7 +5,7 @@
  3. Tech Stack 
  4. How to run it  
  
- This task can list, add, edit and remove tasks and comments. It can also filter comments that belong to a task. The landing page has a list that shows tasks. They can be edited on this page or details can be checked by clicking the details button. The detail page can show details of the task and its comments under the details section. Tasks can be edited on this page. Comments can be edited and deleted in this page. On the form page each field has a validation rule that are defined in the API project like minimum length, required etc. 
+ This task can list, add, edit and remove tasks and comments. It can also filter comments that belong to a task. The landing page has a list that shows tasks. They can be edited on this page or details can be checked by clicking the details button. The detail page can show details of the task and its comments under the details section. Tasks can be edited on this page. Comments can be edited and deleted in this page. On the form page each field has a validation rule that are defined in the API project like minimum length, required etc. Please see the TSD folder for screenshots and required db.
 
 **Prerequisites**
  In order to run this task, please make sure you have these requirements below 
